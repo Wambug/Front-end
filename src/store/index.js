@@ -11,15 +11,25 @@ export default createStore({
       localStorage.setItem('user',JSON.stringify(userData))
       axios.defaults.headers.common['Authorization'] = `Bearer ${userData.access_token}`
     },
+    SEND_USER_DATA (state,userData){
+      state.user = userData
+    },
     CLEAR_USER_DATA(){
       localStorage.removeItem('user')
       location.reload()
     }
   },
   actions: {
+    register({commit},credentials){
+      return axios.post('//localhost:8000/user/signup',credentials).then(
+        ({data}) => {
+          commit('SEND_USER_DATA',data)
+        }
+      )
+    },
     login({commit},credentials){
       return axios
-              .post('//127.0.0.1:8000/user/login',credentials)
+              .post('//localhost:8000/user/login',credentials)
               .then(({data})=>{
                 commit('SET_USER_DATA',data)
                 console.log(data)

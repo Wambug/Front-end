@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # e-learning
 
 ## Project setup
@@ -26,4 +25,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 =======
 # Front-end
 vue project
->>>>>>> 7acaf04cead277213f7fa7d73a89ca9358f41a0e
+

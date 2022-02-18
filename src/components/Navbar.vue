@@ -53,15 +53,8 @@
         <router-link class="text-center hidden md:flex  border border-black rounded py-2 px-4 text-black  float-right" to="/">Sign Up</router-link>
         -->
         <div class="md:hidden flex ">
-
         </div>
         </nav>
-  
-
-    
-    <div class="p-8 text-black text-2xl font-extrabold text-center">
-        Content
-    </div>
 </template>
 
 <script >
