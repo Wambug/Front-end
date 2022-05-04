@@ -26,7 +26,7 @@
                             <router-link :to="{name:'Register'}" href=""  class=" py-5 px-2 text-white hover:text-indigo-200">Sign Up</router-link>
                         </div>
                         <div v-else >
-                            <button class="py-5 px-2 text-white hover:text-indigo-200 " @click="logout">Logout</button>
+                            <Pmenu class="py-6 px-2 text-white"></Pmenu>
                         </div>
                         <!-- Show Mobile menu -->
                         <div   class="md:hidden flex items-center ">
@@ -58,8 +58,9 @@
 </template>
 
 <script >
-
+import Pmenu from './Menu.vue'
 export default {
+    components:{Pmenu},
      methods: {
         logout(){
             this.$store.dispatch('logout')
