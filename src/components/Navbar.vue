@@ -26,7 +26,7 @@
                             <router-link :to="{name:'Register'}" href=""  class=" py-5 px-2 text-white hover:text-indigo-200">Sign Up</router-link>
                         </div>
                         <div v-else >
-                            <Pmenu class="py-6 px-2 text-white"></Pmenu>
+                            <Pmenu class="py-6 float-right"></Pmenu>
                         </div>
                         <!-- Show Mobile menu -->
                         <div   class="md:hidden flex items-center ">

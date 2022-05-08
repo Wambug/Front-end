@@ -1,5 +1,5 @@
 <template>
-       <Menu as="div" class="relative">
+       <Menu as="div" class="relative flex-shrink-0">
            <MenuButton class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black rounded-full">
                <img class="w-10 h-10 inline rounded-full" src="https://pbs.twimg.com/profile_images/1306447677354373120/kco3jR_h_400x400.jpg" alt="avatar" srcset="">
            </MenuButton>
