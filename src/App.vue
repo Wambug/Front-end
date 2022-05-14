@@ -23,7 +23,7 @@ export default{
 </script>
 
 <template>
-  <navbar v-if="!['Instructor'].includes($route.name)" />
+  <navbar v-if="!['Instructor','Courses','Perfomance','Communication','CreateCourse'].includes($route.name)" />
  
   <router-view/>
 </template>

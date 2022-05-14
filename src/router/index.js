@@ -7,7 +7,10 @@ import MyLearning from '../views/MyLearning.vue'
 import User from '../views/User.vue'
 import Login from '../components/Login.vue'
 import Register from '../components/Register.vue'
-
+import Courses from '../views/Courses.vue'
+import Perfomance from '../views/Perfomance.vue'
+import Communication from '../views/Communication.vue'
+import CreateCourse from '../views/Create_course.vue' 
 const routes = [
   {
     path: '/',
@@ -37,10 +40,32 @@ const routes = [
     component: User
   },
   {
-    path: '/instructor-dashboard',
+    path: '/InstructorDashboard',
     name: 'Instructor',
     component: Instructor,
-    meta:{requiresAuth:true}
+    meta:{requiresAuth:true},
+    children:[
+      {
+        path:'/courses',
+        name: 'Courses',
+        component: Courses
+      },
+     {
+       path:'perfomance',
+       name:'Perfomance',
+       component:Perfomance,
+     },
+     {
+       path:'communication',
+       name:'Communication',
+       component:Communication,
+     },
+     {
+       path:'CreateCourse',
+       name:'CreateCourse',
+       component:CreateCourse,
+     }
+    ],
   },
   {
     path: '/login',
