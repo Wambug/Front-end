@@ -2,23 +2,27 @@
     <div class="mt-10p px-4 py-5 border-gray-900  sm:mt-0">
         <div class="md:grid md:grid-cols-3 md:gap-6">
             <div class="mt-5 md:mt-0 md:col-span-2">
-            <form action="#" method="POST">
+            <form @submit.prevent="createcourse">
+            <div class="hidden bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
+                <p class="text-red-700"> {{ error }}</p>
+            </div> 
+            <p class="text-blue-700"> {{ successmessage }}</p> 
                 <div class="shadow overflow-hidden sm:rounded-md">
                 <div class="px-4 py-5 bg-white sm:p-6">
                     <div class="grid grid-cols-6 gap-6">
-                    <div class="col-span-6 sm:col-span-3">
+                    <div class="col-span-6 sm:col-span-4">
                         <label for="first-name" class="block text-sm font-medium text-gray-700">Course Name</label>
-                        <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 p-2 mb-6 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        <input v-model="coursename" type="text" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 p-2 mb-6 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
 
-                    <div class="col-span-6 sm:col-span-3">
+                    <div class="col-span-6 sm:col-span-4">
                         <label for="last-name" class="block text-sm font-medium text-gray-700">Description</label>
-                        <input type="text" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 p-2 mb-6 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        <textarea v-model="description" type="text" name="last-name" id="last-name" autocomplete="family-name" class="mt-1 p-2 mb-6 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
                     </div>
 
                     <div class="col-span-6 sm:col-span-4">
                         <label for="email-address" class="block text-sm font-medium text-gray-700">Course objectives</label>
-                        <input type="text" name="email-address" id="email-address" autocomplete="email" class="p-2 mb-6 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        <textarea type="text" name="email-address" id="email-address" autocomplete="email" class="p-2 mb-6 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
                     </div>
 
                     <div class="col-span-6 sm:col-span-3">
@@ -60,3 +64,33 @@
         </div>
     </div>
 </template>
+
+
+<script>
+import {createCourse} from '../client/index'
+export default {
+    data(){
+        return{
+            coursename:'',
+            description:'',
+            error:null,
+            successmessage:null,
+        }
+    },  
+    methods: {
+        createcourse(coursename, coursedescrition) {
+            coursename = this.coursename,
+            coursedescrition = this.description
+            createCourse(coursename, coursedescrition).
+            then(()  => {
+                console.log("Success")
+                this.successmessage="Course creation successful!"
+                setTimeout(() => this.successmessage = '', 5000)
+            }).catch(err => {
+                this.error = err.response.data.error
+                setTimeout(() => this.error = '', 5000)
+            })
+    },
+    },
+}
+</script>

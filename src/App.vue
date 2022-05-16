@@ -5,8 +5,9 @@ export default{
     const loggedIn = localStorage.getItem('user')
         if (loggedIn){
           const userData = JSON.parse(loggedIn)
+          console.log("Ok",userData.access_token)
           this.$store.commit('SET_USER_DATA',userData)
-        
+          
       }
       axios.interceptors.response.use(
         response => response,
@@ -21,6 +22,7 @@ export default{
    
 }
 </script>
+
 
 <template>
   <navbar v-if="!['Instructor','Courses','Perfomance','Communication','CreateCourse'].includes($route.name)" />
