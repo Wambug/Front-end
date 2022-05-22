@@ -11,6 +11,8 @@ import Courses from '../views/Courses.vue'
 import Perfomance from '../views/Perfomance.vue'
 import Communication from '../views/Communication.vue'
 import CreateCourse from '../views/Create_course.vue' 
+import UpdateCourse  from '../views/UpdateCourse.vue'
+import UpdateCourseContent from '../views/UpdateCourseContent.vue'
 const routes = [
   {
     path: '/',
@@ -50,6 +52,11 @@ const routes = [
         name: 'Courses',
         component: Courses
       },
+      {
+        path:'/courses/:id',
+        name: 'UpdateCourse',
+        component: UpdateCourse
+      },
      {
        path:'perfomance',
        name:'Perfomance',
@@ -64,7 +71,12 @@ const routes = [
        path:'CreateCourse',
        name:'CreateCourse',
        component:CreateCourse,
-     }
+     },
+     {
+      path:'/courses/:name/:sectiontitle/:contentid',
+      name: 'UpdateCourseContent',
+      component: UpdateCourseContent
+    },
     ],
   },
   {

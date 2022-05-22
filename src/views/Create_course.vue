@@ -3,9 +3,7 @@
         <div class="md:grid md:grid-cols-3 md:gap-6">
             <div class="mt-5 md:mt-0 md:col-span-2">
             <form @submit.prevent="createcourse">
-            <div class="hidden bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4" role="alert">
-                <p class="text-red-700"> {{ error }}</p>
-            </div> 
+            <p class="text-red-700"> {{ error }}</p>
             <p class="text-blue-700"> {{ successmessage }}</p> 
                 <div class="shadow overflow-hidden sm:rounded-md">
                 <div class="px-4 py-5 bg-white sm:p-6">
@@ -67,14 +65,14 @@
 
 
 <script>
-import {createCourse} from '../client/index'
+import {createCourse,createSection} from '../client/index'
 export default {
     data(){
         return{
             coursename:'',
             description:'',
             error:null,
-            successmessage:null,
+            successmessage:'',
         }
     },  
     methods: {
@@ -82,6 +80,22 @@ export default {
             coursename = this.coursename,
             coursedescrition = this.description
             createCourse(coursename, coursedescrition).
+            then(response  => {
+                console.log("Success")
+                console.log(response.data)
+                this.successmessage="Course creation successful!"
+                setTimeout(() => this.successmessage = '', 10000)
+                this.$router.push({ name:'Courses'})
+
+            }).catch(err => {
+                this.error = err.response.data.error
+                setTimeout(() => this.error = '', 5000)
+            })
+        },
+        createSection(coursename,Section){
+            coursename = "Woo",
+            Section = [{"Title":"ok"}],
+            createSection(coursename,Section).
             then(()  => {
                 console.log("Success")
                 this.successmessage="Course creation successful!"
@@ -90,7 +104,7 @@ export default {
                 this.error = err.response.data.error
                 setTimeout(() => this.error = '', 5000)
             })
-    },
+        }
     },
 }
 </script>
