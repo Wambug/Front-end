@@ -59,16 +59,20 @@ export default {
     methods: {
         ////courses/:name/:sectiontitle/:contentid
         updatesubsection(coursename,sectiontitle ,subsectionid){
-            coursename = this.coursename
-            sectiontitle = this.sectiontitle
-            subsectionid = this.subsectionid
-            updateSubsection(coursename,sectiontitle ,subsectionid,this.content.Subsection_Title).
-            then(response => {
-                this.content = response.data
-                this.getcontent()
-                
-                console.log(response.data)
-        })
+           if (!this.content.Subsection_Title){
+                console.log("error")
+            }else{
+                  coursename = this.coursename
+                  sectiontitle = this.sectiontitle
+                  subsectionid = this.subsectionid
+                  updateSubsection(coursename,sectiontitle ,subsectionid,this.content.Subsection_Title).
+                  then(response => {
+                      this.content = response.data
+                      this.getcontent()
+                      
+                      console.log(response.data)
+              })
+            }
         },
         getcontent(){
             getContent(this.coursename,this.subsectionid).

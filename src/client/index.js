@@ -30,17 +30,17 @@ const getCourse = async(id) => {
   return messageData
 }
 
-const updateCourse = async (id, Name, Description) => {
-  let data = await axios.post('/course/update'+id, { 
-    Name, 
-    Description
+const updateCourse = async (id, name, description) => {
+  let data = await axios.post('/course/update/'+id, { 
+    name, 
+    description
   });  
   let messageData = data //Some data massage
   return messageData
 }
  
 const deleteCourse = async (id) => {
-  let data = await axios.post('/course/'+id, { 
+  let data = await axios.delete('/course/delete'+id, { 
   });  
   let messageData = data //Some data massage
   return messageData
@@ -54,9 +54,8 @@ const updateSection  = async (name, Description,sectionid) => {
   return massageData
 }
 
-const deleteSection = async (name, Description,sectionid) => {
-  let data = await axios.post('/course/'+name+ '/deleteesection/'+sectionid, { 
-    Description
+const deleteSection = async (coursename,sectionid) => {
+  let data = await axios.delete('/course/'+coursename+ '/deletesection/'+sectionid, { 
   });  
   let massageData = data //Some data massage
   return massageData
@@ -77,10 +76,8 @@ const updateSubsection = async (coursename,sectiontitle ,subsectionid,Subsection
   let massageData = data //Some data massage
   return massageData
 }
-const deleteSubsection =async (Name, Description) => {
-  let data = await axios.post('/course', { 
-    Name, 
-    Description
+const deleteSubsection =async (coursename,sectiontitle,subsectionid) => {
+  let data = await axios.delete('/course/'+coursename +'/delete/'+ sectiontitle +'/' + subsectionid, { 
   });  
   let massageData = data //Some data massage
   return massageData

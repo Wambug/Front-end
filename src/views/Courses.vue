@@ -54,6 +54,12 @@
                 </tr>
             </tbody>
             </table>
+            <tailwindpagination
+            :current="currentPage"
+            :total="total"
+            :per-page="records"
+            @page-changed="pageChange($event)"
+            ></tailwindpagination>
         </div>
         </div>
     </div>
@@ -61,19 +67,25 @@
 </template>
 
 <script>
+import tailwindpagination from '@ocrv/vue-tailwind-pagination'
+import '@ocrv/vue-tailwind-pagination/dist/style.css'
 import {deleteCourse,getCourses} from '../client/index'
 export default {
+    components:{tailwindpagination},
     data() {
         return {
             courses:[],
+            currentPage:1,
+            total:30,
+            records:10
         }
 
     },
     mounted() {
-       this.getcourses(1,10)
+       this.pageChange(this.currentPage)
     },
     methods: {
-                getcourses(page_id, page_size) {
+                getcourses(page_id,page_size) {
                 getCourses(page_id, page_size).
                 then(response  => {
                     console.log(response.data)
@@ -81,7 +93,7 @@ export default {
                     console.log("Success",this.courses)
                     this.successmessage="Course creation successful!"
                     setTimeout(() => this.successmessage = '', 5000)
-                    
+                    return response.data
                 }).catch(err => {
                     this.error = err.response.data.error
                     setTimeout(() => this.error = '', 5000)
@@ -100,6 +112,11 @@ export default {
                         setTimeout(() => this.error = '', 5000)
                     })
                 },
+                pageChange(pageNumber){
+                    this.currentPage = pageNumber
+                    this.getcourses(this.currentPage,10)
+                },
+                
     },
             
 }

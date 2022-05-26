@@ -2,12 +2,13 @@
     <div class="mt-10p px-4 py-5 border-gray-900  sm:mt-0">
         <div  class="md:grid md:grid-cols-3 md:gap-6">
             <div   class="mt-5 md:mt-0 md:col-span-2">
+                <form @submit.prevent="updatecourse">
                 <div class="shadow overflow-hidden sm:rounded-md">
                 <div class="px-4 py-5 bg-white sm:p-6">
                     <div class="grid grid-cols-6 gap-6">
                     <div class="col-span-6 sm:col-span-4">
-                        <label for="first-name" class="block text-sm font-medium text-gray-700">Course Name</label>
-                        <input v-model="course.name" type="text" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 p-2 mb-6 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        <label for="first-name" class="block text-sm font-medium text-gray-700">Course Title:{{course.name}}</label>
+                        <input   v-model="course.name" type="text" name="first-name" id="first-name" autocomplete="given-name" class="mt-1 p-2 mb-6 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     </div>
                     <div class="col-span-6 sm:col-span-4">
                         <label for="last-name" class="block text-sm font-medium text-gray-700">Description</label>
@@ -50,9 +51,10 @@
                     </div>
                 </div>
                 <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                    <!--<button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Next</button>-->
+                <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">UpdateCourse</button>
                 </div>
                 </div>
+                </form>
             </div>
         </div>
     </div>
@@ -80,7 +82,7 @@
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                     <div class="overflow-hidden">
-                        <table class="min-w-full">
+                        <table   class="min-w-full">
                         <thead class="bg-gray-400 border-b">
                             <tr>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
@@ -88,15 +90,21 @@
                             </th>
                             <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                             </th>
+                            <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                            </th>
                             </tr>
                         </thead>
-                        <tbody >
-                            <tr v-for="content in section.Content" :key="content.id"  class="">
+                        <tbody v-for="content in section.Content" :key="content.id" >
+                            <tr class="">
                             <td class="px-6 py-4 whitespace-nowrap bg-gray-100 text-sm font-medium text-gray-900">{{content.Subsection_Title}}</td>
                             <td class="px-6 py-4 whitespace-nowrap bg-gray-100 text-sm font-medium text-gray-900"> 
                                 <router-link  :to="{name:'UpdateCourseContent',params:{name:course.name,sectiontitle:section.Title,contentid:content.ID}}" >
                                     <button    class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
                                 </router-link>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap bg-gray-100 text-sm font-medium text-gray-900"> 
+                                
+                                <button  @click="deletesubsection(course.name,section.Title,content.ID)"  class="font-medium text-red-600 dark:text-blue-500 hover:underline">Delete</button>
                             </td>
                             </tr>
                         </tbody>
@@ -104,8 +112,12 @@
                     </div>
                     </div>
                 </div>
-                <a href="#" class="font-medium float-right text-red-600 dark:text-blue-500 hover:underline">Delete</a>
+                <!--Teststsssssss-->
+                
+                <!--Teststsssssss---->
+                
             </div>
+            <button  @click="deletesection(course.name,section.ID)" href="#" class="font-medium  text-red-600 dark:text-blue-500 hover:underline">Delete</button>
             <br>
             <section>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 ml-16 mt-2 w-6 absolute" viewBox="0 0 20 20" fill="currentColor">
@@ -118,12 +130,14 @@
             <br>  
         </div>
     </div>
+
+    
     
 </template>
 
 
 <script>
-import {createSection,getCourse,createSubsection} from '../client/index'
+import {createSection,deleteSection,deleteSubsection,getCourse,createSubsection,updateCourse} from '../client/index'
 export default {
     data(){
         return{
@@ -155,7 +169,7 @@ export default {
         createSection(coursename,Section){
             coursename = this.course.name,
             Section = [{"Title":this.sectiontitle}]
-            if (!this.subsectiontitle){
+            if (!this.sectiontitle){
                 console.log("error")
             }else{
             createSection(coursename,Section).
@@ -199,8 +213,47 @@ export default {
                 setTimeout(() => this.error = '', 5000)
             })
         }
+        },
+        updatecourse(){
+                 if (!this.course.name && !this.course.description){
+                console.log("error")
+                }else{
+                    updateCourse(this.id,this.course.name,this.course.description).
+                    then(response =>{
+                        console.log("Success",response)
+                        this.successmessage="Course creation successful!"
+                        setTimeout(() => this.successmessage = '', 5000)
+                        this.getcourse(this.id)
+                    }).catch(err =>{
+                        this.error = err.response.data.error
+                        setTimeout(() => this.error = '', 5000)
+                    })
+                }
+        },
+        deletesection(coursename,sectionid){
+            deleteSection(coursename,sectionid).
+            then(response =>{
+                console.log("Success",response)
+                this.successmessage="Course creation successful!"
+                setTimeout(() => this.successmessage = '', 5000)
+                this.getcourse(this.id)
+            }).catch(err =>{
+                this.error = err.response.data.error
+                setTimeout(() => this.error = '', 5000)
+            })
+        },
+        deletesubsection(coursename,sectiontitle,subsectionid){
+            deleteSubsection(coursename,sectiontitle,subsectionid).
+             then(response =>{
+                console.log("Success",response)
+                this.successmessage="Course creation successful!"
+                setTimeout(() => this.successmessage = '', 5000)
+                this.getcourse(this.id)
+            }).catch(err =>{
+                this.error = err.response.data.error
+                setTimeout(() => this.error = '', 5000)
+            })
         }
-        
     },
 }
 </script>
