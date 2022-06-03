@@ -1,11 +1,13 @@
 <template>
     <div class="overflow-hidden">
+        <br>
+        <br>
         <router-link :to="{name: 'CreateCourse'}">
         <button class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
         Create Course
         </button>
         </router-link>
-    <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div v-if="courses"  class="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-4 inline-block min-w-full sm:px-6 lg:px-8">
         <div class="overflow-hidden">
             <table class="min-w-full text-center">
@@ -32,16 +34,19 @@
                     </tr>
             </thead >
             <tbody>
-                <tr v-for="course in courses" :key="course.ID" class="bg-white border-b">
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{course.ID}}</td>
+                <tr  v-for="course in courses" :key="course.ID" class="bg-white border-b">
+                <td  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{course.ID}}</td>
                 <td  class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                     {{course.name}}
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                     Otto
                 </td>
-                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    @mdo
+                <td v-if="course.StudentsEnrolled"   class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    {{course.StudentsEnrolled.length}}
+                </td>
+                <td v-else  class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    0
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                     <router-link :to="{name:'UpdateCourse',params:{id:course.ID}}">
@@ -69,20 +74,21 @@
 <script>
 import tailwindpagination from '@ocrv/vue-tailwind-pagination'
 import '@ocrv/vue-tailwind-pagination/dist/style.css'
-import {deleteCourse,getCourses} from '../client/index'
+import {deleteCourse,getCourses,gettotalnoCoursesbyUser} from '../client/index'
 export default {
     components:{tailwindpagination},
     data() {
         return {
             courses:[],
             currentPage:1,
-            total:30,
+            total:0,
             records:10
         }
 
     },
     mounted() {
        this.pageChange(this.currentPage)
+       this.totalcourses()
     },
     methods: {
                 getcourses(page_id,page_size) {
@@ -93,6 +99,9 @@ export default {
                     console.log("Success",this.courses)
                     this.successmessage="Course creation successful!"
                     setTimeout(() => this.successmessage = '', 5000)
+                    console.log(localStorage.getItem('user'))
+                    
+                    this.totalcourses("ok")
                     return response.data
                 }).catch(err => {
                     this.error = err.response.data.error
@@ -116,6 +125,18 @@ export default {
                     this.currentPage = pageNumber
                     this.getcourses(this.currentPage,10)
                 },
+                totalcourses(){
+                    const user = localStorage.getItem('user')
+                    var entry = JSON.parse(user);
+                    console.log("mzee",entry.user.Username)
+                gettotalnoCoursesbyUser(entry.user.Username).
+                then(response => {
+                    this.total = response.data
+                }).catch(err => {
+                    this.error = err.response.data.error
+                    setTimeout(() => this.error = '', 5000)
+                })
+                }
                 
     },
             

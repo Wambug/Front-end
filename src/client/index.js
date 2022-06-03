@@ -89,6 +89,13 @@ const getCourses =async (page_id,page_size) => {
   console.log(massageData)
   return massageData
 }
+const gettotalnoCoursesbyUser =async (username) => {
+  let data = await axios.get('/total/'+username, {
+  });  
+  let massageData = data //Some data massage
+  console.log(massageData)
+  return massageData
+}
 ///courses/:name/section/:subsectionid
 const getContent =async (coursename,subsectionid) => {
   let data = await axios.get('/courses/'+ coursename +'/section/'+ subsectionid, { 
@@ -98,4 +105,4 @@ const getContent =async (coursename,subsectionid) => {
   return massageData
 }
 //http://localhost:8000/courses?page_id=1&page_size=10
-export {createCourse,createSection,updateCourse,deleteCourse,updateSection,deleteSection,createSubsection,getContent,updateSubsection,deleteSubsection,getCourses,getCourse}
+export {createCourse,gettotalnoCoursesbyUser,createSection,updateCourse,deleteCourse,updateSection,deleteSection,createSubsection,getContent,updateSubsection,deleteSubsection,getCourses,getCourse}
