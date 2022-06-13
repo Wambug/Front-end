@@ -1,5 +1,33 @@
 <template>
     <div class="py-20  h-screen fixed inset-0 bg-gray-600 bg-opacity-50 px-2">
+       <div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden py-2 md:max-w-lg"> 
+          <h3 class="font-bold">{{content.Subsection_Title}}</h3>
+            <input type="text" @keyup.enter="updatesubsection"  v-model="content.Subsection_Title" class="h-12 px-3 w-full border-gray-200 border rounded focus:outline-none focus:border-gray-300">
+          </div>
+          <br>
+          <div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden py-2 md:max-w-lg">
+           <video width="800" height="720" ref="videoPlayer">
+                        <source v-if="content.SubContent"
+                        :src="content.SubContent"
+                          type="video/mp4"
+                        />
+                        Your browser does not support the video tag.
+          </video>
+                      <div>
+                        <button class="rounded bg-gray-500 px-2 mr-2" @click="play">play</button>
+                        <button class="rounded bg-gray-500 px-2 mr-2" @click="pause">pause</button>
+                        <button class="rounded bg-gray-500 px-2 mr-2" @click="stop">stop</button>
+                        <button class="rounded bg-gray-500 px-2 mr-2" @click="setSpeed(0.5)">0.5x</button>
+                        <button  class="rounded bg-gray-500 px-2 mr-2" @click="setSpeed(1)">1x</button>
+                        <button class="rounded bg-gray-500 px-2 mr-2" @click="setSpeed(1.5)">1.5x</button>
+                        <button class="rounded bg-gray-500 px-2 mr-2" @click="setSpeed(2)">2x</button>
+
+                        <button class="rounded bg-red-700 px-2 mr-2">Delete</button>
+                      </div>
+            </div>
+                
+          <br>
+      <form @submit.prevent="uploadvideo"  enctype="multipart/form-data">
             <div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden md:max-w-lg">
                 <div class="md:flex">
                     <div class="w-full">
@@ -7,10 +35,6 @@
                         <span class="text-lg font-bold text-gray-600">Add documents</span>
                       </div>
                       <div class="p-3">
-                        <div class="mb-2"> 
-                            <h3 class="font-bold">{{content.Subsection_Title}}</h3>
-                          <input type="text" @keyup.enter="updatesubsection"  v-model="content.Subsection_Title" class="h-12 px-3 w-full border-gray-200 border rounded focus:outline-none focus:border-gray-300"> 
-                        </div>
                         <div class="mb-2"> 
                           <span>Attachments</span>
                             <div class="relative h-40 rounded-lg border-dashed border-2 border-gray-200 bg-white flex justify-center items-center hover:cursor-pointer">
@@ -23,7 +47,9 @@
                                        <span class="block text-blue-400 font-normal">Browse files</span>
                                     
                                     </div>
-                                </div> <input type="file" class="h-full w-full opacity-0" name="">
+                                </div> 
+                                <input type="file" @change="selectFile" ref="file" accept=" video/*" class="h-full w-full opacity-0" >
+                                <label for="file" @change="selectFile"></label>
                             </div>
                             <div class="flex justify-between items-center text-gray-400">
                               <span>Accepted file type:.mp4 only</span>
@@ -37,10 +63,12 @@
                     </div>
                 </div>
             </div>
+          </form>
         </div>
 </template>
 
 <script>
+import axios from 'axios'
 import {updateSubsection,getContent} from '../client/index'
 export default {
     data() {
@@ -49,6 +77,7 @@ export default {
             sectiontitle:this.$route.params.sectiontitle,
             subsectionid:this.$route.params.contentid,
             subsectiontitle:'',
+            file:'',
             content: {},
         }
     },
@@ -74,13 +103,47 @@ export default {
               })
             }
         },
+        async uploadvideo(coursename,sectiontitle ,subsectionid){
+          coursename = this.coursename
+          sectiontitle = this.sectiontitle
+          subsectionid = this.subsectionid
+          //subsectiontitle = this.content.Subsection_Title
+          console.log(this.file)
+          const formdata = new FormData();
+          formdata.append('file',this.file)
+          try{
+          await axios.post('/upload/'+coursename+'/'+sectiontitle +'/'+subsectionid,formdata);
+          }catch(err){
+            console.log(err)
+          }
+        
+            
+        },
         getcontent(){
             getContent(this.coursename,this.subsectionid).
             then(response => {
                 this.content = response.data
                 console.log(response.data)
             })
-        }
+        },
+        selectFile(){
+          this.file = this.$refs.file.files[0];
+        },
+         play() {
+      this.$refs.videoPlayer.play();
+    },
+    pause() {
+      this.$refs.videoPlayer.pause();
+    },
+    stop() {
+      const { videoPlayer } = this.$refs;
+      videoPlayer.pause();
+      videoPlayer.currentTime = 0;
+    },
+    setSpeed(speed) {
+      this.$refs.videoPlayer.playbackRate = speed;
+    },
+
     },
 } 
 </script>

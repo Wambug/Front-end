@@ -76,6 +76,14 @@ const updateSubsection = async (coursename,sectiontitle ,subsectionid,Subsection
   let massageData = data //Some data massage
   return massageData
 }
+const videoupload = async (coursename,sectiontitle ,subsectionid) => {
+  let data = await axios.post('/upload/'+coursename+'/'+sectiontitle +'/'+subsectionid, { 
+  
+  });
+  let massageData = data //Some data massage
+  return massageData
+}
+
 const deleteSubsection =async (coursename,sectiontitle,subsectionid) => {
   let data = await axios.delete('/course/'+coursename +'/delete/'+ sectiontitle +'/' + subsectionid, { 
   });  
@@ -105,4 +113,4 @@ const getContent =async (coursename,subsectionid) => {
   return massageData
 }
 //http://localhost:8000/courses?page_id=1&page_size=10
-export {createCourse,gettotalnoCoursesbyUser,createSection,updateCourse,deleteCourse,updateSection,deleteSection,createSubsection,getContent,updateSubsection,deleteSubsection,getCourses,getCourse}
+export {createCourse,gettotalnoCoursesbyUser,createSection,updateCourse,deleteCourse,updateSection,deleteSection,createSubsection,getContent,updateSubsection,deleteSubsection,getCourses,getCourse,videoupload}
