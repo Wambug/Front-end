@@ -148,9 +148,6 @@ export default {
             id: this.$route.params.id,
             course:{},
             subsectiontitle:'', 
-            inputRules:[
-                v => v.lenght >= 3 || 'Minimum length is three characters'
-            ] 
         }
     },  
     mounted() {

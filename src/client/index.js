@@ -91,7 +91,7 @@ const deleteSubsection =async (coursename,sectiontitle,subsectionid) => {
   return massageData
 }
 const getCourses =async (page_id,page_size) => {
-  let data = await axios.get('/courses?page_id='+ page_id+'&page_size='+ page_size, { 
+  let data = await axios.get('/course?page_id='+ page_id+'&page_size='+ page_size, { 
   });  
   let massageData = data //Some data massage
   console.log(massageData)
@@ -112,5 +112,14 @@ const getContent =async (coursename,subsectionid) => {
   console.log(massageData)
   return massageData
 }
+
+const getAllCourses =async () => {
+  let data = await axios.get('/courses', { 
+  });  
+  let massageData = data //Some data massage
+  console.log(massageData)
+  return massageData
+}
+
 //http://localhost:8000/courses?page_id=1&page_size=10
-export {createCourse,gettotalnoCoursesbyUser,createSection,updateCourse,deleteCourse,updateSection,deleteSection,createSubsection,getContent,updateSubsection,deleteSubsection,getCourses,getCourse,videoupload}
+export {createCourse,gettotalnoCoursesbyUser,createSection,updateCourse,deleteCourse,updateSection,deleteSection,createSubsection,getContent,updateSubsection,deleteSubsection,getCourses,getCourse,getAllCourses,videoupload}

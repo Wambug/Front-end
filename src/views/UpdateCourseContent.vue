@@ -5,7 +5,7 @@
             <input type="text" @keyup.enter="updatesubsection"  v-model="content.Subsection_Title" class="h-12 px-3 w-full border-gray-200 border rounded focus:outline-none focus:border-gray-300">
           </div>
           <br>
-          <div class="max-w-md mx-auto bg-white rounded-lg overflow-hidden py-2 md:max-w-lg">
+          <div v-if="content.SubContent" class="max-w-md mx-auto bg-white rounded-lg overflow-hidden py-2 md:max-w-lg">
            <video width="800" height="720" ref="videoPlayer">
                         <source v-if="content.SubContent"
                         :src="content.SubContent"
@@ -113,6 +113,7 @@ export default {
           formdata.append('file',this.file)
           try{
           await axios.post('/upload/'+coursename+'/'+sectiontitle +'/'+subsectionid,formdata);
+          this.getcontent()
           }catch(err){
             console.log(err)
           }
