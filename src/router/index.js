@@ -26,9 +26,10 @@ const routes = [
     meta:{requiresAuth:true}
   },
   {
-    path: '/course',
+    path: '/course/:id',
     name: 'Course',
-    component:Course
+    component:Course,
+    meta:{requiresAuth:true}
   },
   {
     path: '/mylearning',
@@ -99,11 +100,11 @@ const router = createRouter({
 router.beforeEach((to,from,next)=>{
   const loggedIn = localStorage.getItem('user')
   if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn ) {
-    if (to.path === '/mylearning' || to.path == '/instructor-dashboard' ){
+    if (to.path === '/mylearning' || to.path === '/InstructorDashboard' || to.path === '/course'){
       next('/') 
       return
     }
-   next('/') 
+    next('/') 
   }
   next()
 })

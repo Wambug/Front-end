@@ -7,7 +7,6 @@ export default{
           const userData = JSON.parse(loggedIn)
           console.log("Ok",userData.access_token)
           this.$store.commit('SET_USER_DATA',userData)
-          
       }
       axios.interceptors.response.use(
         response => response,
@@ -25,7 +24,7 @@ export default{
 
 
 <template>
-  <navbar v-if="!['Instructor','Courses','Perfomance','Communication','CreateCourse','UpdateCourse','UpdateCourseContent'].includes($route.name)" />
+  <navbar v-if="!['Instructor','Courses','Perfomance','Communication','Course','CreateCourse','UpdateCourse','UpdateCourseContent'].includes($route.name)" />
  
   <router-view/>
 </template>

@@ -121,5 +121,16 @@ const getAllCourses =async () => {
   return massageData
 }
 
+
+const enroll =async (title,username) => {
+  let data = await axios.post('/enroll', { 
+    title,
+    username
+  });  
+  let massageData = data //Some data massage
+  console.log(massageData)
+  return massageData
+}
+
 //http://localhost:8000/courses?page_id=1&page_size=10
-export {createCourse,gettotalnoCoursesbyUser,createSection,updateCourse,deleteCourse,updateSection,deleteSection,createSubsection,getContent,updateSubsection,deleteSubsection,getCourses,getCourse,getAllCourses,videoupload}
+export {createCourse,gettotalnoCoursesbyUser,createSection,updateCourse,enroll,deleteCourse,updateSection,deleteSection,createSubsection,getContent,updateSubsection,deleteSubsection,getCourses,getCourse,getAllCourses,videoupload}

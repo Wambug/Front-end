@@ -68,7 +68,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 ml-16 mt-2 w-6 absolute" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                 </svg>
-                <input :rules="inputRules" @keyup.enter="createSection" v-model="sectiontitle" placeholder="Create a new course section" class="w-1/2  text-center ml-8 p-2  text-gray-700 border-b-2 border-gray-500 outline-none focus:bg-gray-300" type="text" name="username">
+                <input @keyup.enter="createSection" v-model="sectiontitle" placeholder="Create a new course section" class="w-1/2  text-center ml-8 p-2  text-gray-700 border-b-2 border-gray-500 outline-none focus:bg-gray-300" type="text" name="username">
         </div>
         <br>
         <br>

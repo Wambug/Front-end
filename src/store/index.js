@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import axios from 'axios'
+//import router from '../router'
 
 export default createStore({
   state: {
@@ -37,6 +38,7 @@ export default createStore({
     },
     logout({commit}){
       commit('CLEAR_USER_DATA')
+      this.$router.push({ name:'Login'})
     }
   },
   modules: {

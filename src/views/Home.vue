@@ -37,7 +37,7 @@
               class="flex-none w-2/3 md:w-1/3 mr-8 md:pb-4 border rounded-lg"
             >
             <div  v-if="course.StudentsEnrolled">
-              <a href="#" class="space-y-4">
+            
                 <div class="aspect-w-16 aspect-h-9">
                   <img
                     class="object-cover shadow-md hover:shadow-xl rounded-lg"
@@ -57,13 +57,14 @@
                     <p class="overflow-hidden">
                       {{course.description}}
                     </p>
+                    <router-link :to="{name:'Course',params:{id:course.ID}}">
                     <p class="font-medium text-sm text-indigo-600 mt-2">
-                      Read more<span class="text-indigo-600">&hellip;</span>
+                      View<span class="text-indigo-600">&hellip;</span>
                     </p>
-                    <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-right" disabled="disabled">Enroll</button>
+                    </router-link>
+                    <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-right" @click="Enroll(course.name)">Enroll</button>
                   </div>
                 </div>
-              </a>
             </div>
 
             <div  v-else>
@@ -89,7 +90,7 @@
                     <p class="font-medium text-sm text-indigo-600 mt-2">
                       Read more<span class="text-indigo-600">&hellip;</span>
                     </p>
-                     <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-right" disabled="disabled">Enroll</button>
+                     <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-right" @click="Enroll(course.name)">Enroll</button>
                   </div>
                 </div>
               </a>
@@ -152,7 +153,7 @@
                     <p class="font-medium text-sm text-indigo-600 mt-2">
                       Read more<span class="text-indigo-600">&hellip;</span>
                     </p>
-                    <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-right" disabled="disabled">Enroll</button>
+                    <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded float-right" @click="Enroll(course.name)">Enroll</button>
                   </div>
                 </div>
               </a>
@@ -168,7 +169,7 @@
 </template>
 <script>
 // @ is an alias to /src
-import { getAllCourses } from '../client'
+import { getAllCourses,enroll } from '../client'
 export default {
   // <div v-for="course in courses" :key="course.ID"  class="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
   name: 'Home',
@@ -211,6 +212,7 @@ export default {
       getAllCourses()
       .then(response =>{
             console.log("Success",response)
+            
             this.courses = response.data
             this.enrolledcoures = this.enrolledCourses
             this.unenrolledcoures = this.unenrolledCourses
@@ -221,6 +223,19 @@ export default {
       }).catch(err =>{
               this.error = err.response.data.error
               setTimeout(() => this.error = '', 5000)
+      })
+    },
+    Enroll(coursetitle){
+      username
+      const user = localStorage.getItem('user')
+      var entry = JSON.parse(user);
+      var username = entry.user.Username
+      console.log("mzee",entry.user.Username)
+      console.log("wee",username)
+      enroll(coursetitle,username).then(response =>{
+        console.log("success",response)
+      }).catch(err =>{
+        console.log(err)
       })
     }
   },
