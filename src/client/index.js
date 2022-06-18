@@ -40,7 +40,7 @@ const updateCourse = async (id, name, description) => {
 }
  
 const deleteCourse = async (id) => {
-  let data = await axios.delete('/course/delete'+id, { 
+  let data = await axios.delete('/course/delete/'+id, { 
   });  
   let messageData = data //Some data massage
   return messageData
@@ -121,6 +121,13 @@ const getAllCourses =async () => {
   return massageData
 }
 
+const getAllCoursesEnrolled =async () => {
+  let data = await axios.get('/course/enrolled', { 
+  });  
+  let massageData = data //Some data massage
+  console.log(massageData)
+  return massageData
+}
 
 const enroll =async (title,username) => {
   let data = await axios.post('/enroll', { 
@@ -133,4 +140,9 @@ const enroll =async (title,username) => {
 }
 
 //http://localhost:8000/courses?page_id=1&page_size=10
-export {createCourse,gettotalnoCoursesbyUser,createSection,updateCourse,enroll,deleteCourse,updateSection,deleteSection,createSubsection,getContent,updateSubsection,deleteSubsection,getCourses,getCourse,getAllCourses,videoupload}
+export {createCourse,gettotalnoCoursesbyUser,createSection
+  ,updateCourse,enroll,getAllCoursesEnrolled,
+  deleteCourse,updateSection,deleteSection,
+  createSubsection,getContent,updateSubsection,
+  deleteSubsection,getCourses,getCourse,
+  getAllCourses,videoupload}

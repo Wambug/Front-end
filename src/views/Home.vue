@@ -52,6 +52,7 @@
                     </h3>
 
                     <h2 class="py-2 uppercase tracking-widest text-xs">No .of Students: {{course.StudentsEnrolled.length}}</h2>
+                    <h2 class="py-2 uppercase tracking-widest text-xs">Author: {{course.author}}</h2>
                   </div>
                   <div class="text-lg">
                     <p class="overflow-hidden">

@@ -11,6 +11,7 @@
     "@headlessui/vue": "^1.6.1",
     "@ocrv/vue-tailwind-pagination": "^0.0.4",
     "@tailwindcss/postcss7-compat": "^2.2.17",
+    "artplayer": "^4.4.7",
     "autoprefixer": "^9",
     "axios": "^0.26.0",
     "core-js": "^3.6.5",

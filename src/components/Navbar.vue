@@ -11,7 +11,7 @@
                             <a href="" class="flex items-center space-x-2 py-5 px-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                                </svg><router-link :to="{name:'Home'}" class="text-2xl font-extrabold  text-white">Udemy Clone</router-link>
+                                </svg><router-link :to="{name:'Home'}" class="text-2xl font-extrabold  text-white">Elearning</router-link>
                             </a>
                             <!--Menu -->
                             <div class="hidden md:flex items-center space-x-1">

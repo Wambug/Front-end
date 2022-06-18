@@ -71,23 +71,23 @@
     <!--Desktop--> 
     <div class="hidden md:block w-64 bg-opacity-100   text-white bg-gray-800 border-r border-gray-200">
                 <div class="py-4 px-6">
-                    <router-link :to="{name:'Instructor'}" >
+                    <p>
                     <span class="flex uppercase tracking-widest text-lg items-center mb-2" >
                     {{course.name}}</span>
-                    </router-link>
+                    </p>
                 </div>
                 <div  v-for="section in course.Section" :key="section.id" class="mb-10">
 
-                   <router-link :to="{name:'Courses'}" class="flex px-6 py-2.5 hover:text-white items-center group" >
+                   <div class="flex px-6 py-2.5 hover:text-white items-center group" >
                         <h3 class="text-xs group-hover:text-white text-gray-400 uppercase tracking-widest">{{section.Title}}</h3>
-                   </router-link>
+                   </div>
                    <div  v-for="content in section.Content" :key="content.id" >
                      <h5 class="flex items-center px-10 py-2.5 text-gray-500" >{{content.Subsection_Title}}</h5>
                    </div>
                 </div>
         </div> 
         <div class="flex-1" >
-            <div class="">
+            <div  class="">
                 <button type="button" value="Open sidebar"
                 @click="sidebarOpened = true"
                 class="mr-3 px-2 py-2 md:hidden flex-shrink-0 flex items-center justify-center  w-10 h-10 rounded-full text-gray-600 hover:ring-2 hover:ring-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-600"
@@ -98,22 +98,44 @@
                 </button>
                 <Pmenu class="px-2 py-4 float-right"> </Pmenu>
                 <router-link :to="{name:'Home'}" class="px-2 py-6 float-right hover:text-blue-900">Student Dashboard</router-link>
+                <br>
+                <br>
+                <br>
+                <div  v-for="section in course.Section" :key="section.id" >
+                    <div class="bg-gray-600 md:w-3/4  text-xs  group-hover:text-white text-gray-400 uppercase tracking-widest" v-for="content in section.Content" :key="content.id">
+                    <h3>{{content.Subsection_Title}}</h3>
+                    <br>
+                   <div  v-if="content.SubContent"  class="flex">
+                    <video class=" aspect-auto" muted controls 
+                    poster="https://media.istockphoto.com/photos/giraffe-against-city-skyline-picture-id170625026?k=20&m=170625026&s=612x612&w=0&h=298bxibJE8eTjdiZe8yq1Qw4aX7r_QWl_5j3RirXgmI="
+                       width="800" height="720" data-setup="{}">
+                        <source v-if="content.SubContent"
+                        :src="content.SubContent"
+                          type="video/mp4"
+                        />
+                        Your browser does not support the video tag.
+                        </video>
+                      <div>
+                      </div>
+            </div>
+                    <hr>
+                    </div>
+                </div>
                 
             </div>
-             <br>
-             <br>
-             <br>
-             <router-view/>
+             
         </div>
     </div>
 </template>
+
+
 
 
 <script>
 import { getCourse } from "../client"
 import Pmenu from "../components/Menu.vue"
 import{TransitionRoot,TransitionChild,Dialog,DialogOverlay} from '@headlessui/vue'
-//import router from "../router"
+//import router from "../router" 
 export default {
     components:{TransitionRoot,TransitionChild,Dialog,DialogOverlay,Pmenu},
     data() {

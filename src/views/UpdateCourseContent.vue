@@ -21,8 +21,6 @@
                         <button  class="rounded bg-gray-500 px-2 mr-2" @click="setSpeed(1)">1x</button>
                         <button class="rounded bg-gray-500 px-2 mr-2" @click="setSpeed(1.5)">1.5x</button>
                         <button class="rounded bg-gray-500 px-2 mr-2" @click="setSpeed(2)">2x</button>
-
-                        <button class="rounded bg-red-700 px-2 mr-2">Delete</button>
                       </div>
             </div>
                 

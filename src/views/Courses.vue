@@ -54,7 +54,7 @@
                     </router-link>
                 </td>
                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    <button class="bg-red-600 py-2 border-b-4 px-4 rounded">Delete</button>
+                    <button  @click="deletecourse(course.ID)" class="bg-red-600 py-2 border-b-4 px-4 rounded">Delete</button>
                 </td>
                 </tr>
             </tbody>
@@ -109,7 +109,6 @@ export default {
                 })
                 },
                 deletecourse(id) {
-                    id=1,
                     deleteCourse(id).
                     then(()  => {
                         console.log("Success")
