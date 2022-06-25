@@ -107,7 +107,7 @@
                     <br>
                    <div  v-if="content.SubContent"  class="flex">
                     <video class=" aspect-auto" muted controls 
-                    poster="https://media.istockphoto.com/photos/giraffe-against-city-skyline-picture-id170625026?k=20&m=170625026&s=612x612&w=0&h=298bxibJE8eTjdiZe8yq1Qw4aX7r_QWl_5j3RirXgmI="
+                    :poster="content.Thumbnail"
                        width="800" height="720" data-setup="{}">
                         <source v-if="content.SubContent"
                         :src="content.SubContent"
