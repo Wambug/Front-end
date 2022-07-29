@@ -1,6 +1,5 @@
 /* eslint-disable vue/valid-template-root */
 <template>
-   <br>
     <div class="max-w-xs w-full  m-auto bg-indigo-100 rounded p-5">
         <header>
             <img class="w-20 mx-auto  mb-5" src="https://img.icons8.com/ultraviolet/240/000000/rebel.png" />

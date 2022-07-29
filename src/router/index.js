@@ -13,6 +13,7 @@ import Communication from '../views/Communication.vue'
 import CreateCourse from '../views/Create_course.vue' 
 import UpdateCourse  from '../views/UpdateCourse.vue'
 import UpdateCourseContent from '../views/UpdateCourseContent.vue'
+import Video from '../views/Video.vue'
 const routes = [
   {
     path: '/',
@@ -29,7 +30,14 @@ const routes = [
     path: '/course/:id',
     name: 'Course',
     component:Course,
-    meta:{requiresAuth:true}
+    meta:{requiresAuth:true},
+    children:[
+      {
+        path:'/:id/:name/:sectiontitle/:contentid',
+        name: 'Video',
+        component:Video
+      },
+    ]
   },
   {
     path: '/mylearning',

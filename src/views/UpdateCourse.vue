@@ -1,4 +1,5 @@
 <template>
+<div>
     <div class="mt-10p px-4 py-5 border-gray-900  sm:mt-0">
         <div  class="md:grid md:grid-cols-3 md:gap-6">
             <div   class="mt-5 md:mt-0 md:col-span-2">
@@ -58,8 +59,6 @@
             </div>
         </div>
     </div>
-   
-    
     <div class="rounded border shadow-xl border-gray-300 px-4 ml-4 mt-10p w-2/3 py-5">
         <h3 class="ml-2 mt-1">Curriculum</h3>
         <hr>
@@ -112,10 +111,6 @@
                     </div>
                     </div>
                 </div>
-                <!--Teststsssssss-->
-                
-                <!--Teststsssssss---->
-                
             </div>
             <button  @click="deletesection(course.name,section.ID)" href="#" class="font-medium  text-red-600 dark:text-blue-500 hover:underline">Delete</button>
             <br>
@@ -132,7 +127,8 @@
     </div>
 
     
-    
+</div>
+
 </template>
 
 

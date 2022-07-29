@@ -82,7 +82,10 @@
                         <h3 class="text-xs group-hover:text-white text-gray-400 uppercase tracking-widest">{{section.Title}}</h3>
                    </div>
                    <div  v-for="content in section.Content" :key="content.id" >
-                     <h5 class="flex items-center px-10 py-2.5 text-gray-500" >{{content.Subsection_Title}}</h5>
+                   <router-link  :to="{name:'Video',params:{id:course.ID ,name:course.name,sectiontitle:section.Title,contentid:content.ID}}" >
+                         <h5 class="flex items-center px-10 py-2.5 text-gray-500" >{{content.Subsection_Title}}</h5>
+                    </router-link>
+
                    </div>
                 </div>
         </div> 
@@ -98,33 +101,10 @@
                 </button>
                 <Pmenu class="px-2 py-4 float-right"> </Pmenu>
                 <router-link :to="{name:'Home'}" class="px-2 py-6 float-right hover:text-blue-900">Student Dashboard</router-link>
-                <br>
-                <br>
-                <br>
-                <div  v-for="section in course.Section" :key="section.id" >
-                    <div class="bg-gray-600 md:w-3/4  text-xs  group-hover:text-white text-gray-400 uppercase tracking-widest" v-for="content in section.Content" :key="content.id">
-                    <h3>{{content.Subsection_Title}}</h3>
-                    <br>
-                   <div  v-if="content.SubContent"  class="flex">
-                    <video class=" aspect-auto" muted controls 
-                    :poster="content.Thumbnail"
-                       width="800" height="720" data-setup="{}">
-                        <source v-if="content.SubContent"
-                        :src="content.SubContent"
-                          type="video/mp4"
-                        />
-                        Your browser does not support the video tag.
-                        </video>
-                      <div>
-                      </div>
-            </div>
-                    <hr>
-                    </div>
-                </div>
-                
             </div>
              
         </div>
+        <router-view/>
     </div>
 </template>
 

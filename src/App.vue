@@ -1,6 +1,19 @@
+<template>
+<div>
+  <navbar v-if="!['Instructor','Courses','Perfomance','Communication','Course','CreateCourse','UpdateCourse','UpdateCourseContent','Video'].includes($route.name)" />
+ 
+  <router-view/>
+</div>
+</template>
+<style>
+</style>
+
+
 <script>
 import axios from 'axios'
+import navbar from './components/Navbar.vue'
 export default{
+  components:{navbar},
   created (){
     const loggedIn = localStorage.getItem('user')
         if (loggedIn){
@@ -20,17 +33,4 @@ export default{
   }
    
 }
-</script>
-
-
-<template>
-  <navbar v-if="!['Instructor','Courses','Perfomance','Communication','Course','CreateCourse','UpdateCourse','UpdateCourseContent'].includes($route.name)" />
- 
-  <router-view/>
-</template>
-<style>
-</style>
-
-<script setup>
-import navbar from './components/Navbar.vue'
 </script>
